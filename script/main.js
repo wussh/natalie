@@ -302,5 +302,20 @@ const animationTimeline = () => {
   });
 };
 
+// Play audio on first user interaction to bypass autoplay restrictions
+function enableBirthdayAudioOnUserInteraction() {
+  const audio = document.getElementById('birthday-audio');
+  if (!audio) return;
+  const playAudio = () => {
+    audio.play();
+    // Remove listeners after first play
+    document.removeEventListener('click', playAudio);
+    document.removeEventListener('keydown', playAudio);
+  };
+  document.addEventListener('click', playAudio);
+  document.addEventListener('keydown', playAudio);
+}
+
+enableBirthdayAudioOnUserInteraction();
 // Run fetch and animation in sequence
 fetchData();
